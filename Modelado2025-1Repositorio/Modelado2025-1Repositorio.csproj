@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Modelado2025_1Repositorio</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modelado2025-1BD\Modelado2025-1BD.csproj" />
+    <ProjectReference Include="..\Modelado2025-1Shared\Modelado2025-1Shared.csproj" />
+  </ItemGroup>
+
+</Project>
