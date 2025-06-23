@@ -12,8 +12,8 @@ using Modelado2025_1BD.Datos;
 namespace Modelado2025_1BD.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250623032712_inicio8")]
-    partial class inicio8
+    [Migration("20250623035041_inicio1")]
+    partial class inicio1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,9 +90,6 @@ namespace Modelado2025_1BD.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int?>("PedidoId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
 
@@ -104,8 +101,6 @@ namespace Modelado2025_1BD.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
 
                     b.HasIndex("TipoProductoId");
 
@@ -169,10 +164,6 @@ namespace Modelado2025_1BD.Migrations
 
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Producto", b =>
                 {
-                    b.HasOne("Modelado2025_1BD.Datos.Entity.Pedido", null)
-                        .WithMany("Productos")
-                        .HasForeignKey("PedidoId");
-
                     b.HasOne("Modelado2025_1BD.Datos.Entity.TipoProducto", "TipoProductos")
                         .WithMany("Productos")
                         .HasForeignKey("TipoProductoId")
@@ -209,8 +200,6 @@ namespace Modelado2025_1BD.Migrations
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Pedido", b =>
                 {
                     b.Navigation("ProductoPedidos");
-
-                    b.Navigation("Productos");
                 });
 
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Producto", b =>

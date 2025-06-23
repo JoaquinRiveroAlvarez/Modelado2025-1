@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Modelado2025_1BD.Migrations
 {
     /// <inheritdoc />
-    public partial class inicio2 : Migration
+    public partial class inicio : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,10 +45,10 @@ namespace Modelado2025_1BD.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DetallePedidoId = table.Column<int>(type: "int", nullable: false),
                     FechaPedido = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Cliente = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DetallePedidoId = table.Column<int>(type: "int", nullable: false)
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,8 +57,7 @@ namespace Modelado2025_1BD.Migrations
                         name: "FK_Pedidos_DetallePedidos_DetallePedidoId",
                         column: x => x.DetallePedidoId,
                         principalTable: "DetallePedidos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -68,7 +67,6 @@ namespace Modelado2025_1BD.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TipoProductoId = table.Column<int>(type: "int", nullable: false),
-                    PedidoId = table.Column<int>(type: "int", nullable: false),
                     CodProducto = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -78,17 +76,10 @@ namespace Modelado2025_1BD.Migrations
                 {
                     table.PrimaryKey("PK_Productos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Productos_Pedidos_PedidoId",
-                        column: x => x.PedidoId,
-                        principalTable: "Pedidos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Productos_TipoProductos_TipoProductoId",
                         column: x => x.TipoProductoId,
                         principalTable: "TipoProductos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -105,14 +96,12 @@ namespace Modelado2025_1BD.Migrations
                         name: "FK_ProductoPedido_Pedidos_PedidoId",
                         column: x => x.PedidoId,
                         principalTable: "Pedidos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ProductoPedido_Productos_ProductoId",
                         column: x => x.ProductoId,
                         principalTable: "Productos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -123,11 +112,6 @@ namespace Modelado2025_1BD.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProductoPedido_PedidoId",
                 table: "ProductoPedido",
-                column: "PedidoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Productos_PedidoId",
-                table: "Productos",
                 column: "PedidoId");
 
             migrationBuilder.CreateIndex(
@@ -155,16 +139,16 @@ namespace Modelado2025_1BD.Migrations
                 name: "ProductoPedido");
 
             migrationBuilder.DropTable(
-                name: "Productos");
-
-            migrationBuilder.DropTable(
                 name: "Pedidos");
 
             migrationBuilder.DropTable(
-                name: "TipoProductos");
+                name: "Productos");
 
             migrationBuilder.DropTable(
                 name: "DetallePedidos");
+
+            migrationBuilder.DropTable(
+                name: "TipoProductos");
         }
     }
 }

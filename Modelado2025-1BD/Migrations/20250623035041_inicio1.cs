@@ -5,7 +5,7 @@
 namespace Modelado2025_1BD.Migrations
 {
     /// <inheritdoc />
-    public partial class inicio8 : Migration
+    public partial class inicio1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
