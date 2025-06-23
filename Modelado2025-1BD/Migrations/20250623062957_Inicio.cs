@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Modelado2025_1BD.Migrations
 {
     /// <inheritdoc />
-    public partial class inicio : Migration
+    public partial class Inicio : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,7 +83,7 @@ namespace Modelado2025_1BD.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductoPedido",
+                name: "ProductoPedidos",
                 columns: table => new
                 {
                     ProductoId = table.Column<int>(type: "int", nullable: false),
@@ -91,14 +91,14 @@ namespace Modelado2025_1BD.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductoPedido", x => new { x.ProductoId, x.PedidoId });
+                    table.PrimaryKey("PK_ProductoPedidos", x => new { x.ProductoId, x.PedidoId });
                     table.ForeignKey(
-                        name: "FK_ProductoPedido_Pedidos_PedidoId",
+                        name: "FK_ProductoPedidos_Pedidos_PedidoId",
                         column: x => x.PedidoId,
                         principalTable: "Pedidos",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ProductoPedido_Productos_ProductoId",
+                        name: "FK_ProductoPedidos_Productos_ProductoId",
                         column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "Id");
@@ -110,8 +110,8 @@ namespace Modelado2025_1BD.Migrations
                 column: "DetallePedidoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductoPedido_PedidoId",
-                table: "ProductoPedido",
+                name: "IX_ProductoPedidos_PedidoId",
+                table: "ProductoPedidos",
                 column: "PedidoId");
 
             migrationBuilder.CreateIndex(
@@ -136,7 +136,7 @@ namespace Modelado2025_1BD.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductoPedido");
+                name: "ProductoPedidos");
 
             migrationBuilder.DropTable(
                 name: "Pedidos");

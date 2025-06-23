@@ -119,7 +119,7 @@ namespace Modelado2025_1BD.Migrations
 
                     b.HasIndex("PedidoId");
 
-                    b.ToTable("ProductoPedido");
+                    b.ToTable("ProductoPedidos");
                 });
 
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.TipoProducto", b =>

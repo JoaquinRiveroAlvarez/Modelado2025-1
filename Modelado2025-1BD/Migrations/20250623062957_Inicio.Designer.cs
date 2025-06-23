@@ -12,8 +12,8 @@ using Modelado2025_1BD.Datos;
 namespace Modelado2025_1BD.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250623034219_inicio")]
-    partial class inicio
+    [Migration("20250623062957_Inicio")]
+    partial class Inicio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,7 +122,7 @@ namespace Modelado2025_1BD.Migrations
 
                     b.HasIndex("PedidoId");
 
-                    b.ToTable("ProductoPedido");
+                    b.ToTable("ProductoPedidos");
                 });
 
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.TipoProducto", b =>

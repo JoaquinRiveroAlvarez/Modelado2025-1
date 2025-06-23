@@ -15,7 +15,7 @@ namespace Modelado2025_1BD.Datos
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<DetallePedido> DetallePedidos { get; set; }
 
-        //public DbSet<ProductoPedido> ProductoPedidos { get; set; }
+        public DbSet<ProductoPedido> ProductoPedidos { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options)
         {      
