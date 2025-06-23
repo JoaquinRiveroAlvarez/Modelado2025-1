@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modelado2025-1Servicio\Modelado2025-1Servicio.csproj" />
-    <ProjectReference Include="..\..\Modelado2025-1Shared\Modelado2025-1Shared.csproj" />
+    <ProjectReference Include="..\..\Modelado2025-1Servicio\Modelado2025-1.Servicio.csproj" />
+    <ProjectReference Include="..\..\Modelado2025-1Shared\Modelado2025-1.Shared.csproj" />
   </ItemGroup>
 
 </Project>

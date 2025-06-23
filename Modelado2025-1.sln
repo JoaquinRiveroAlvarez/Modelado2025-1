@@ -1,19 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36121.58 d17.14
+VisualStudioVersion = 17.14.36121.58
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1Server", "Modelado2025-1Server\Modelado2025-1Server\Modelado2025-1Server.csproj", "{DE3DD078-DEFB-4352-90AB-30A9EF2D44F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1.Server", "Modelado2025-1Server\Modelado2025-1Server\Modelado2025-1.Server.csproj", "{DE3DD078-DEFB-4352-90AB-30A9EF2D44F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1Server.Client", "Modelado2025-1Server\Modelado2025-1Server.Client\Modelado2025-1Server.Client.csproj", "{4577C16B-EDCB-4A8A-BED6-0CA5F2A7DC42}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1.Server.Client", "Modelado2025-1Server\Modelado2025-1Server.Client\Modelado2025-1.Server.Client.csproj", "{4577C16B-EDCB-4A8A-BED6-0CA5F2A7DC42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1Shared", "Modelado2025-1Shared\Modelado2025-1Shared.csproj", "{58C0EF8F-7B68-4AD9-BF63-13EC36BDB4FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1.Shared", "Modelado2025-1Shared\Modelado2025-1.Shared.csproj", "{58C0EF8F-7B68-4AD9-BF63-13EC36BDB4FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1BD", "Modelado2025-1BD\Modelado2025-1BD.csproj", "{4A0A16A0-DEAB-47F0-908E-E042166B0042}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1.BD", "Modelado2025-1BD\Modelado2025-1.BD.csproj", "{4A0A16A0-DEAB-47F0-908E-E042166B0042}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1Repositorio", "Modelado2025-1Repositorio\Modelado2025-1Repositorio.csproj", "{F31A6FCE-0246-4A87-89D5-E2F82F6B58B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1.Repositorio", "Modelado2025-1Repositorio\Modelado2025-1.Repositorio.csproj", "{F31A6FCE-0246-4A87-89D5-E2F82F6B58B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1Servicio", "Modelado2025-1Servicio\Modelado2025-1Servicio.csproj", "{D07A9A46-84AD-42A1-A253-5840D19A83B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelado2025-1.Servicio", "Modelado2025-1Servicio\Modelado2025-1.Servicio.csproj", "{D07A9A46-84AD-42A1-A253-5840D19A83B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

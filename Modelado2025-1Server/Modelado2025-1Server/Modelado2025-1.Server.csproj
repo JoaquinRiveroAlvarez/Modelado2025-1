@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modelado2025-1BD\Modelado2025-1BD.csproj" />
-    <ProjectReference Include="..\..\Modelado2025-1Repositorio\Modelado2025-1Repositorio.csproj" />
-    <ProjectReference Include="..\..\Modelado2025-1Shared\Modelado2025-1Shared.csproj" />
-    <ProjectReference Include="..\Modelado2025-1Server.Client\Modelado2025-1Server.Client.csproj" />
+    <ProjectReference Include="..\..\Modelado2025-1BD\Modelado2025-1.BD.csproj" />
+    <ProjectReference Include="..\..\Modelado2025-1Repositorio\Modelado2025-1.Repositorio.csproj" />
+    <ProjectReference Include="..\..\Modelado2025-1Shared\Modelado2025-1.Shared.csproj" />
+    <ProjectReference Include="..\Modelado2025-1Server.Client\Modelado2025-1.Server.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">
       <PrivateAssets>all</PrivateAssets>

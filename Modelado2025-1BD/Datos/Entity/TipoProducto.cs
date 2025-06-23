@@ -20,7 +20,6 @@ namespace Modelado2025_1BD.Datos.Entity
         [Required(ErrorMessage = "El campo Tipo es obligatorio")]
         [MaxLength(30, ErrorMessage = "El tipo de producto no puede exceder los 30 caracteres")]
         public required string Tipo { get; set; }
-
-        public List<Producto>? Productos { get; set; } = new List<Producto>();
+        public List<Producto> Productos { get; set; } = new();
     }
 }

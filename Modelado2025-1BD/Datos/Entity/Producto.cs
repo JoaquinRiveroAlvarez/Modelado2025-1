@@ -12,10 +12,8 @@ namespace Modelado2025_1BD.Datos.Entity
     public class Producto
     {
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "El campo Tipo Producto es obligatorio")]
-        public int TipoProductoId { get; set; }
-        public TipoProducto? TipoProducto { get; set; }
+        public int TipoProductoId { get;set; }
+        public TipoProducto? TipoProductos { get; set; }
 
         [Required(ErrorMessage = "El campo CodProducto es obligatorio")]
         [MaxLength(4, ErrorMessage = "El código del producto no puede exceder los 4 caracteres")]
@@ -30,6 +28,6 @@ namespace Modelado2025_1BD.Datos.Entity
         [Required(ErrorMessage = "El producto es obligatorio")]
         [MaxLength(30, ErrorMessage = "El producto no puede exceder los 30 caracteres")]
         public int Stock { get; set; } = 0;
-
+        public List<ProductoPedido> ProductoPedidos { get; set; } = new();
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modelado2025_1BD.Datos;
 
@@ -11,9 +12,11 @@ using Modelado2025_1BD.Datos;
 namespace Modelado2025_1BD.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250623030902_inicio5")]
+    partial class inicio5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,8 @@ namespace Modelado2025_1BD.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DetallePedidoId");
+                    b.HasIndex("DetallePedidoId")
+                        .IsUnique();
 
                     b.ToTable("Pedidos");
                 });
@@ -87,6 +91,9 @@ namespace Modelado2025_1BD.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<int?>("PedidoId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
 
@@ -98,6 +105,8 @@ namespace Modelado2025_1BD.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
 
                     b.HasIndex("TipoProductoId");
 
@@ -119,7 +128,7 @@ namespace Modelado2025_1BD.Migrations
 
                     b.HasIndex("PedidoId");
 
-                    b.ToTable("ProductoPedidos");
+                    b.ToTable("ProductoPedido");
                 });
 
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.TipoProducto", b =>
@@ -151,9 +160,9 @@ namespace Modelado2025_1BD.Migrations
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Pedido", b =>
                 {
                     b.HasOne("Modelado2025_1BD.Datos.Entity.DetallePedido", "DetallePedidos")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("DetallePedidoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .WithOne("Pedidos")
+                        .HasForeignKey("Modelado2025_1BD.Datos.Entity.Pedido", "DetallePedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("DetallePedidos");
@@ -161,10 +170,14 @@ namespace Modelado2025_1BD.Migrations
 
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Producto", b =>
                 {
+                    b.HasOne("Modelado2025_1BD.Datos.Entity.Pedido", null)
+                        .WithMany("Productos")
+                        .HasForeignKey("PedidoId");
+
                     b.HasOne("Modelado2025_1BD.Datos.Entity.TipoProducto", "TipoProductos")
                         .WithMany("Productos")
                         .HasForeignKey("TipoProductoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("TipoProductos");
@@ -175,13 +188,13 @@ namespace Modelado2025_1BD.Migrations
                     b.HasOne("Modelado2025_1BD.Datos.Entity.Pedido", "Pedidos")
                         .WithMany("ProductoPedidos")
                         .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Modelado2025_1BD.Datos.Entity.Producto", "Productos")
                         .WithMany("ProductoPedidos")
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Pedidos");
@@ -197,6 +210,8 @@ namespace Modelado2025_1BD.Migrations
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Pedido", b =>
                 {
                     b.Navigation("ProductoPedidos");
+
+                    b.Navigation("Productos");
                 });
 
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Producto", b =>

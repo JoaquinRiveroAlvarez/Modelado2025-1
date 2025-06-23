@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modelado2025-1BD\Modelado2025-1BD.csproj" />
-    <ProjectReference Include="..\Modelado2025-1Shared\Modelado2025-1Shared.csproj" />
+    <ProjectReference Include="..\Modelado2025-1BD\Modelado2025-1.BD.csproj" />
+    <ProjectReference Include="..\Modelado2025-1Shared\Modelado2025-1.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,11 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modelado2025-1Shared\Modelado2025-1Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\Modelado2025-1Shared\Modelado2025-1.Shared.csproj" />
   </ItemGroup>
 
 </Project>
