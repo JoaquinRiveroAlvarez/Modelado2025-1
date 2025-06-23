@@ -22,12 +22,6 @@ namespace Modelado2025_1BD.Datos
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //// Relación 1:1 entre Pedido y DetallePedido
-            //modelBuilder.Entity<Pedido>()
-            //    .HasOne(u => u.DetallePedidos)
-            //    .WithOne(p => p.Pedidos)
-            //    .HasForeignKey<Pedido>(u => u.DetallePedidoId)
-            //    .OnDelete(DeleteBehavior.NoAction);
 
             // Relación 1:N entre TipoProducto y Producto
 
@@ -43,6 +37,7 @@ namespace Modelado2025_1BD.Datos
                 .WithMany(r => r.Pedidos)
                 .HasForeignKey(u => u.DetallePedidoId)
                 .OnDelete(DeleteBehavior.NoAction);
+
             // Relación N:M entre Pedido y Producto
 
             modelBuilder.Entity<ProductoPedido>()
