@@ -13,11 +13,12 @@
     <ProjectReference Include="..\..\Modelado2025-1Repositorio\Modelado2025-1.Repositorio.csproj" />
     <ProjectReference Include="..\..\Modelado2025-1Shared\Modelado2025-1.Shared.csproj" />
     <ProjectReference Include="..\Modelado2025-1Server.Client\Modelado2025-1.Server.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
   </ItemGroup>
 
 </Project>

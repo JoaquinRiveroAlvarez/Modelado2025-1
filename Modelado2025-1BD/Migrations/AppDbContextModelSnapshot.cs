@@ -17,7 +17,7 @@ namespace Modelado2025_1BD.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.6")
+                .HasAnnotation("ProductVersion", "9.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -30,6 +30,19 @@ namespace Modelado2025_1BD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Observacion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("cantidad")
                         .HasColumnType("int");
 
@@ -37,6 +50,10 @@ namespace Modelado2025_1BD.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
+
+                    b.HasIndex("ProductoId");
 
                     b.ToTable("DetallePedidos");
                 });
@@ -53,18 +70,31 @@ namespace Modelado2025_1BD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DetallePedidoId")
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<int>("EstadoRegistro")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FechaPedido")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("MetodoDePago")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Observacion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DetallePedidoId");
+                    b.HasIndex(new[] { "Codigo" }, "Pedido_UQ")
+                        .IsUnique();
 
                     b.ToTable("Pedidos");
                 });
@@ -77,15 +107,22 @@ namespace Modelado2025_1BD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CodProducto")
+                    b.Property<string>("Codigo")
                         .IsRequired()
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
+
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Observacion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
@@ -101,25 +138,10 @@ namespace Modelado2025_1BD.Migrations
 
                     b.HasIndex("TipoProductoId");
 
-                    b.HasIndex(new[] { "CodProducto" }, "Producto_UQ")
+                    b.HasIndex(new[] { "Codigo" }, "Producto_UQ")
                         .IsUnique();
 
                     b.ToTable("Productos");
-                });
-
-            modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.ProductoPedido", b =>
-                {
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductoId", "PedidoId");
-
-                    b.HasIndex("PedidoId");
-
-                    b.ToTable("ProductoPedidos");
                 });
 
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.TipoProducto", b =>
@@ -135,6 +157,13 @@ namespace Modelado2025_1BD.Migrations
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)");
 
+                    b.Property<int>("EstadoRegistro")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Observacion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Tipo")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -148,65 +177,39 @@ namespace Modelado2025_1BD.Migrations
                     b.ToTable("TipoProductos");
                 });
 
-            modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Pedido", b =>
+            modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.DetallePedido", b =>
                 {
-                    b.HasOne("Modelado2025_1BD.Datos.Entity.DetallePedido", "DetallePedidos")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("DetallePedidoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("Modelado2025_1BD.Datos.Entity.Pedido", "Pedidos")
+                        .WithMany("DetallePedidos")
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("DetallePedidos");
+                    b.HasOne("Modelado2025_1BD.Datos.Entity.Producto", "Productos")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Pedidos");
+
+                    b.Navigation("Productos");
                 });
 
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Producto", b =>
                 {
                     b.HasOne("Modelado2025_1BD.Datos.Entity.TipoProducto", "TipoProductos")
-                        .WithMany("Productos")
+                        .WithMany()
                         .HasForeignKey("TipoProductoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("TipoProductos");
                 });
 
-            modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.ProductoPedido", b =>
-                {
-                    b.HasOne("Modelado2025_1BD.Datos.Entity.Pedido", "Pedidos")
-                        .WithMany("ProductoPedidos")
-                        .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Modelado2025_1BD.Datos.Entity.Producto", "Productos")
-                        .WithMany("ProductoPedidos")
-                        .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Pedidos");
-
-                    b.Navigation("Productos");
-                });
-
-            modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.DetallePedido", b =>
-                {
-                    b.Navigation("Pedidos");
-                });
-
             modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Pedido", b =>
                 {
-                    b.Navigation("ProductoPedidos");
-                });
-
-            modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.Producto", b =>
-                {
-                    b.Navigation("ProductoPedidos");
-                });
-
-            modelBuilder.Entity("Modelado2025_1BD.Datos.Entity.TipoProducto", b =>
-                {
-                    b.Navigation("Productos");
+                    b.Navigation("DetallePedidos");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Modelado2025_1BD.Datos;
+using Modelado2025_1Repositorio.Repositorios;
 using Modelado2025_1Server.Client.Pages;
 using Modelado2025_1Server.Components;
 
@@ -7,10 +9,27 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 #region Construccion
-var StrConn = builder.Configuration.GetConnectionString("ConSql");
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Modelado2025-1 API",
+        Version = "v1",
+        Description = "API de gestión de Provincias",
+    });
+});
+var StrConn = builder.Configuration.GetConnectionString("ConSql")
+                                 ?? throw new InvalidOperationException(
+                                    "El string de conexion no existe.");
 builder.Services.AddDbContext<AppDbContext>(options =>
               options.UseSqlServer(StrConn));
+
+builder.Services.AddScoped<IDetallePedidoRepositorio, DetallePedidoRepositorio>();
+builder.Services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
+
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
@@ -25,6 +44,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Modelado2025-1 API v1");
+        c.RoutePrefix = "swagger"; // Swagger en /swagger
+    });
 }
 else
 {
@@ -35,6 +60,7 @@ else
 
 app.UseHttpsRedirection();
 
+app.UseAuthorization();
 
 app.UseAntiforgery();
 
@@ -43,6 +69,8 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Modelado2025_1Server.Client._Imports).Assembly);
+
+app.MapControllers();
 
 #endregion+
 
