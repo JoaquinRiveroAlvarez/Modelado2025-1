@@ -3,7 +3,12 @@
 
 <h3>Lista de Pedidos</h3>
 <br>
-<table>
+<div class="mb-3">
+    <label for="nroPedido"><b>Buscar Nro de pedido:</b></label>
+    <input id="nroPedido" type="number" @bind="nroPedido" placeholder="Ej: 101" />
+    <button class="btn btn-primary ms-2" @onclick="BuscarPedido">Buscar</button>
+    <button class="btn btn-secondary ms-1" @onclick="LimpiarBusqueda">Limpiar</button>
+</div>
     <tr>
         <th>Pedidos</th>
     </tr>
@@ -11,55 +16,111 @@
     {
         <p>Buscando...</p>
     }
-    else if (pedidos.Count == 0)
+    else if (pedidoBuscado != null)
     {
-        <p>No hay Pedidos cargados en esta lista</p>
+        <h4>Pedido Nº @pedidoBuscado.Id</h4>
+        <p><b>Fecha:</b> @pedidoBuscado.FechaPedido.ToString("dd/MM/yyyy")</p>
+        <p><b>Cliente:</b> @pedidoBuscado.Cliente</p>
+        <p><b>Método de pago:</b> @pedidoBuscado.MetodoDePago</p>
+        <p><b>Total:</b> $@pedidoBuscado.Total</p>
+
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var det in pedidoBuscado.Detalles)
+                {
+                    <tr>
+                        <td>@det.ProductoNombre</td>
+                        <td>@det.PrecioUnitario</td>
+                        <td>@det.Cantidad</td>
+                        <td>@det.Subtotal</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button class="btn btn-link" @onclick="LimpiarBusqueda">⬅ Volver a la lista</button>
     }
     else
     {
-        @foreach (var pedido in pedidos)
-        {
-            <tr>
-                <td>@pedido.Id</td>
-                <td>@pedido.FechaPedido.ToString("dd/MM/yyyy")</td>
-                <td>@pedido.Cliente</td>
-                <td>@pedido.MetodoDePago</td>
-                <td>@pedido.Total</td>
-            </tr>
-            <tr>
-                <td colspan="5">
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Precio Unitario</th>
-                                <th>Cantidad</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var det in pedido.Detalles)
-                            {
-                                <tr>
-                                    <td>@det.ProductoNombre</td>
-                                    <td>@det.PrecioUnitario</td>
-                                    <td>@det.Cantidad</td>
-                                    <td>@det.Subtotal</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        }
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nro Pedido</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Método de Pago</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (pedidos == null)
+                {
+                    <tr><td colspan="5">Cargando pedidos...</td></tr>
+                }
+                else if (pedidos.Count == 0)
+                {
+                    <tr><td colspan="5">No hay pedidos cargados.</td></tr>
+                }
+                else
+                {
+                    @foreach (var pedido in pedidos)
+                    {
+                        <tr>
+                            <td>@pedido.Id</td>
+                            <td>@pedido.FechaPedido.ToString("dd/MM/yyyy")</td>
+                            <td>@pedido.Cliente</td>
+                            <td>@pedido.MetodoDePago</td>
+                            <td>@pedido.Total</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Precio Unitario</th>
+                                            <th>Cantidad</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var det in pedido.Detalles)
+                                        {
+                                            <tr>
+                                                <td>@det.ProductoNombre</td>
+                                                <td>@det.PrecioUnitario</td>
+                                                <td>@det.Cantidad</td>
+                                                <td>@det.Subtotal</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
 
     }
-</table>
 <br />
-<p>@Mensaje</p>
+
+<p class="text-danger">@Mensaje</p>
+
 @code {
     List<PedidoListadoDTO>? pedidos;
+    PedidoListadoDTO? pedidoBuscado;
     string Mensaje = "";
+    bool buscando = false;
+    int nroPedido;
 
     protected override async Task OnInitializedAsync()
     {
@@ -78,6 +139,39 @@
         {
             Mensaje = resp.ObtenerError();
         }
+    }
+    private async Task BuscarPedido()
+    {
+        if (nroPedido <= 0)
+        {
+            Mensaje = "Ingrese un número de pedido válido.";
+            return;
+        }
+
+        buscando = true;
+        Mensaje = "";
+
+        var resp = await Http.Get<PedidoListadoDTO>($"api/pedido/{nroPedido}");
+        buscando = false;
+
+        if (!resp.Error)
+        {
+            pedidoBuscado = resp.Respuesta;
+            if (pedidoBuscado == null)
+                Mensaje = $"No se encontró el pedido N° {nroPedido}.";
+        }
+        else
+        {
+            Mensaje = resp.ObtenerError();
+        }
+    }
+
+    private async Task LimpiarBusqueda()
+    {
+        nroPedido = 0;
+        pedidoBuscado = null;
+        Mensaje = "";
+        await LeerPedidos();
     }
 
     private async Task Borrar(PedidoListadoDTO pedido)

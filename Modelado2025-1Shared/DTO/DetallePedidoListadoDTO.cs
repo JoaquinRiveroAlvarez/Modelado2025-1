@@ -8,7 +8,7 @@ namespace Modelado2025_1Shared.DTO
 {
     public class DetallePedidoListadoDTO
     {
-        public int IdDetalle { get; set; }
+        public int Id { get; set; }
         public int ProductoId { get; set; }
         public string ProductoNombre { get; set; } = string.Empty;
         public decimal PrecioUnitario { get; set; }

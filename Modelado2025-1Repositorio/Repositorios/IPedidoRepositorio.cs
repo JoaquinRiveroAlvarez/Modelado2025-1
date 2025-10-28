@@ -7,6 +7,6 @@ namespace Modelado2025_1Repositorio.Repositorios
     {
         Task<Pedido?> SelectByCod(string cod);
         Task<List<PedidoListadoDTO>> SelectListaPedido();
-        //Task<PedidoResumenDTO?> SelectPedidoPorId(int pedidoId);
+        Task<PedidoListadoDTO?> SelectPedidoPorId(int pedidoId);
     }
 }

@@ -35,7 +35,7 @@ namespace Modelado2025_1Repositorio.Repositorios
                     MetodoDePago = p.MetodoDePago,
                     Detalles = p.DetallePedidos.Select(d => new DetallePedidoListadoDTO
                     {
-                        IdDetalle = d.Id,
+                        Id = d.Id,
                         ProductoId = d.ProductoId,
                         ProductoNombre = d.Productos!.Nombre,
                         PrecioUnitario = d.precioUnitario,
@@ -46,31 +46,29 @@ namespace Modelado2025_1Repositorio.Repositorios
 
             return lista;
         }
-        //public async Task<PedidoListadoDTO?> SelectPedidoPorId(int pedidoId)
-        //{
-        //    var pedido = await context.Pedidos
-        //        .Include(p => p.DetallePedidos)
-        //        .ThenInclude(d => d.Productos)
-        //        .Where(p => p.Id == pedidoId)
-        //        .Select(p => new PedidoListadoDTO
-        //        {
-        //            Id = p.Id,
-        //            Pedido = $"Nro Pedido: {p.Id}",
-        //            FechaPedido = p.FechaPedido,
-        //            Cliente = p.Cliente,
-        //            MetodoDePago = p.MetodoDePago,
-        //            Total = p.DetallePedidos.Sum(dp => dp.cantidad * dp.precioUnitario),
-
-
-
-
-        //            // Lista de detalles
-        //            DetallesCadaPedido = p.DetallePedidos
-        //                .Select(d => $"Producto: {d.Pedido!.Codigo} | Precio Unitario: {d.precioUnitario} | Cantidad: {d.cantidad} ")
-        //                .ToList()
-        //        })
-        //        .FirstOrDefaultAsync();
-        //    return pedido;
-        //}
+        public async Task<PedidoListadoDTO?> SelectPedidoPorId(int pedidoId)
+        {
+            var pedido = await context.Pedidos
+                .Include(p => p.DetallePedidos)
+                .ThenInclude(d => d.Productos)
+                .Where(p => p.Id == pedidoId)
+                .Select(p => new PedidoListadoDTO
+                {
+                    Id = p.Id,
+                    FechaPedido = p.FechaPedido,
+                    Cliente = p.Cliente,
+                    MetodoDePago = p.MetodoDePago,
+                    Detalles = p.DetallePedidos.Select(d => new DetallePedidoListadoDTO
+                    {
+                        Id = d.Id,
+                        ProductoId = d.ProductoId,
+                        ProductoNombre = d.Productos!.Nombre,
+                        PrecioUnitario = d.precioUnitario,
+                        Cantidad = d.cantidad
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
+            return pedido;
+        }
     }
 }

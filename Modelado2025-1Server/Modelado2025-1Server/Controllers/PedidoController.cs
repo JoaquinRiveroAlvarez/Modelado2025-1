@@ -70,6 +70,15 @@ namespace Proyecto2025.Server.Controllers
                 return StatusCode(500, $"Error interno del servidor: {ex.Message}");
             }
         }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<PedidoListadoDTO>> GetPedidoPorId(int id)
+        {
+            var pedido = await repositorio.SelectPedidoPorId(id);
+            if (pedido == null)
+                return NotFound($"No se encontró el pedido con Id {id}");
+
+            return Ok(pedido);
+        }
 
         //[HttpGet("{id}/ListaPedido+DetallePorId")]  //api/Pedido/
         //public async Task<ActionResult<List<PedidoResumenDTO>>> ListaDetallePedidoPorId(int id)
