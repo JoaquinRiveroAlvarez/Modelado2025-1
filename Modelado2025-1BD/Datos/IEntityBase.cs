@@ -1,4 +1,4 @@
-﻿using Modelado2025_1BD.Datos.Enum;
+﻿using Modelado2025_1Shared.Enum;
 
 namespace Modelado2025_1BD.Datos
 {

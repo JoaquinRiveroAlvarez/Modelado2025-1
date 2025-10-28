@@ -1,0 +1,93 @@
+﻿@page "/pedidos"
+@inject IHttpServicio Http
+
+<h3>Lista de Pedidos</h3>
+<br>
+<table>
+    <tr>
+        <th>Pedidos</th>
+    </tr>
+    @if (pedidos == null)
+    {
+        <p>Buscando...</p>
+    }
+    else if (pedidos.Count == 0)
+    {
+        <p>No hay Pedidos cargados en esta lista</p>
+    }
+    else
+    {
+        @foreach (var pedido in pedidos)
+        {
+            <tr>
+                <td>@pedido.Id</td>
+                <td>@pedido.FechaPedido.ToString("dd/MM/yyyy")</td>
+                <td>@pedido.Cliente</td>
+                <td>@pedido.MetodoDePago</td>
+                <td>@pedido.Total</td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio Unitario</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var det in pedido.Detalles)
+                            {
+                                <tr>
+                                    <td>@det.ProductoNombre</td>
+                                    <td>@det.PrecioUnitario</td>
+                                    <td>@det.Cantidad</td>
+                                    <td>@det.Subtotal</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        }
+
+    }
+</table>
+<br />
+<p>@Mensaje</p>
+@code {
+    List<PedidoListadoDTO>? pedidos;
+    string Mensaje = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await LeerPedidos();
+
+    }
+    private async Task LeerPedidos()
+    {
+        var resp = await Http.Get<List<PedidoListadoDTO>>("api/pedido/ListaPedido");
+        if (!resp.Error)
+        {
+            pedidos = resp.Respuesta;
+        }
+        else
+        {
+            Mensaje = resp.ObtenerError();
+        }
+    }
+
+    private async Task Borrar(PedidoListadoDTO pedido)
+    {
+        var resp = await Http.Delete($"api/pedido/{pedido.Id}");
+        if (resp.Error)
+        {
+            Mensaje = resp.ObtenerError();
+        }
+        await LeerPedidos();
+    }
+}
+

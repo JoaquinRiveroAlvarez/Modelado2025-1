@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Modelado2025_1BD.Datos.Enum;
+using Modelado2025_1Shared.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +18,6 @@ namespace Modelado2025_1BD.Datos.Entity
         public DateTime FechaPedido { get; set; } = DateTime.Now;
         public string Cliente { get; set; } = string.Empty;
         public MetodoDePago MetodoDePago { get; set; } 
-        public decimal Total { get; set; } = 0;
         public Pedido()
         {
             FechaPedido = DateTime.Now;

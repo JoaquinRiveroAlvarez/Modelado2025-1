@@ -3,11 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Modelado2025_1BD.Datos;
 using Modelado2025_1BD.Datos.Entity;
 using Modelado2025_1Repositorio.Repositorios;
+using Modelado2025_1Shared.DTO;
 
 namespace Proyecto2025.Server.Controllers
 {
     [ApiController]
-    [Route("api/Pedido")]
+    [Route("api/pedido")]
     public class PedidoController : ControllerBase
     {
         private readonly IPedidoRepositorio repositorio;
@@ -56,6 +57,42 @@ namespace Proyecto2025.Server.Controllers
             return Ok(pedido);
         }
 
+        [HttpGet("ListaPedido")]
+        public async Task<ActionResult<List<PedidoListadoDTO>>> ListaPedido()
+        {
+            try
+            {
+                var pedidos = await repositorio.SelectListaPedido();
+                return Ok(pedidos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+            }
+        }
+
+        //[HttpGet("{id}/ListaPedido+DetallePorId")]  //api/Pedido/
+        //public async Task<ActionResult<List<PedidoResumenDTO>>> ListaDetallePedidoPorId(int id)
+        //{
+        //    var lista = await repositorio.SelectPedidoPorId(id);
+        //    if (lista == null)
+        //    {
+        //        return NotFound($"No se encontro elementos en la lista con el código: {id}.");
+        //    }
+        //    return Ok(lista);
+        //}
+        //[HttpGet("{id}/resumen")]  //api/Pedido/
+        //public async Task<ActionResult<List<PedidoResumenDTO>>> GetPedidoResumen(int id)
+        //{
+        //    var resumen = await repositorio.SelectPedidoConDetalles(id);
+        //    if (resumen is null)
+        //    {
+        //        return NotFound($"No existe el registro con el código: {id}.");
+        //    }
+        //    //if (resumen == null || resumen.Count == 0)
+        //    //    return NotFound();
+        //    return Ok(resumen);
+        //}
         //[HttpPost]
         //public async Task<ActionResult<int>> Post(Pedido DTO)
         //{

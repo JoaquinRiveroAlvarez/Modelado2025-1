@@ -1,3 +1,4 @@
+using Modelado2025_1.Servicio.ServiciosHttp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Modelado2025_1BD.Datos;
@@ -6,9 +7,15 @@ using Modelado2025_1Server.Client.Pages;
 using Modelado2025_1Server.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped(sp => new HttpClient
+{
+    BaseAddress = new Uri("https://localhost:7230/")
+});
 // Add services to the container.
 
 #region Construccion
+builder.Services.AddScoped<IHttpServicio, HttpServicio>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

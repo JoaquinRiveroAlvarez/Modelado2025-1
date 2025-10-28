@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Modelado2025_1BD.Datos;
 using Modelado2025_1BD.Datos.Entity;
 using Modelado2025_1Repositorio.Repositorios;
+using Modelado2025_1Shared.DTO;
 
 namespace Proyecto2025.Server.Controllers
 {
@@ -44,6 +45,38 @@ namespace Proyecto2025.Server.Controllers
             return Ok(detallePedido);
         }
 
+        //[HttpGet("ListaDetallePedido")] //api/ListaDetallePedido
+        //public async Task<ActionResult<List<DetallePedidoListadoDTO>>> ListaDetallePedido()
+        //{
+        //    var lista = await repositorio.SelectListaDetallePedido();
+        //    if (lista == null)
+        //    {
+        //        return NotFound("No se encontro elementos de la lista, VERIFICAR.");
+        //    }
+        //    if (lista.Count == 0)
+        //    {
+        //        return Ok("Lista sin registros.");
+        //    }
+
+        //    return Ok(lista);
+        //}
+
+        //[HttpGet("{id}/ListaPorNroPedido")]  //api/Pedido/3
+        //public async Task<ActionResult<List<DetallePedidoListadoDTO>>> ListaDetallePedidoPorId(int id)
+        //{
+        //    var lista = await repositorio.SelectPedidoPorId(id);
+        //    if (lista == null)
+        //    {
+        //        return NotFound($"No se encontro elementos en la lista con el código: {id}.");
+        //    }
+        //    if (lista.Count == 0)
+        //    {
+        //        return Ok("Lista sin registros.");
+        //    }
+        //    return Ok(lista);
+        //    //if (resumen == null || resumen.Count == 0)
+        //    //    return NotFound();
+        //}
         //[HttpGet("Codigo/{cod}")]  //api/TipoProvincia/PRU
         //public async Task<ActionResult<DetallePedido>> GetByCod(string cod)
         //{

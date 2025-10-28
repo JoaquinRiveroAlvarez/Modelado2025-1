@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modelado2025_1BD.Datos;
-using Modelado2025_1BD.Datos.Enum;
+using Modelado2025_1Shared.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;

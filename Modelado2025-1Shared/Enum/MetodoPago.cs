@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modelado2025_1BD.Datos.Enum
+namespace Modelado2025_1Shared.Enum
 {
     public enum MetodoDePago
     {
